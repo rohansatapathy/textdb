@@ -9,7 +9,6 @@ of a properly formatted TextDB database file:
 apple orange
 water melon
 lets go blue
-fuck ohio
 ```
 The first space is interpreted as the separator between the key and value,
 and all subsequent spaces are treated as part of the value. For example,
