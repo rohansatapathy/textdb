@@ -6,14 +6,14 @@
 #define MAX_ITEM_LENGTH 1024
 
 struct dbitem {
-  char* key;
-  char* value;
+    char* key;
+    char* value;
 };
 
 struct db {
-  struct dbitem* items;
-  int size;
-  int capacity;
+    struct dbitem* items;
+    int size;
+    int capacity;
 };
 
 /*
@@ -64,4 +64,4 @@ void db_write(struct db* db, FILE* fp);
  */
 void db_delete(struct db* db);
 
-#endif  // !TEXTDB_DB_H_
+#endif // !TEXTDB_DB_H_
