@@ -9,7 +9,7 @@ build:
 	$(CC) $(CFLAGS) $(SRC) -o bin/db
 
 run:
-	bin/main $(ARGS)
+	bin/db $(ARGS)
 
 clean:
 	rm -rf $(wildcard bin/*)
