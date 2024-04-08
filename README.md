@@ -19,9 +19,10 @@ contains the following help text.
 
 ```
 Usage:
-    db <key>            # Read a key
-    db <key> <value>    # Set a key-value pair
-    db [OPTION]     
+    db <db-file-path> <key>             # Read a key
+    db <db-file-path> <key> <value>     # Set a key-value pair
+    db <db-file-path> [-a | --all]      # List all database items
+    db [-h | --help]                    # Print the help menu
 
 Options:
     -h, --help  Show this screen.

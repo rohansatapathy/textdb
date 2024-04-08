@@ -6,7 +6,7 @@ SRC = $(wildcard src/*.c)
 .PHONY: run clean
 
 build:
-	$(CC) $(CFLAGS) $(SRC) -o bin/main
+	$(CC) $(CFLAGS) $(SRC) -o bin/db
 
 run:
 	bin/main $(ARGS)
