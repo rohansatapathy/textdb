@@ -66,28 +66,28 @@ reallocated to half its original capacity.
 
 ## FAQ
 
- - Q: Why not use a data structure that's more efficient than an unordered
+ - __Q__: Why not use a data structure that's more efficient than an unordered
    list?
 
-   A: If there's anything that I've learned over the past few years, it's that
+   __A__: If there's anything that I've learned over the past few years, it's that
    efficiency is overrated. Why is everyone so obsessed with hash maps and
    RB trees and "cOnStAnT tImE sEaRcH"? If you ask me, TextDB is a win for
    developers -- if you don't feel like doing work, just load up a particularly
    large database, then when your boss asks you what you're doing, just tell
    them that your database query is still running ([relevant xkcd](https://xkcd.com/303/)).
 
- - Q: Is TextDB ready to use in production?
+ - __Q__: Is TextDB ready to use in production?
 
-   A: Yes! TextDB's single-threaded, blocking design makes it ideal for highly 
+   __A__: Yes! TextDB's single-threaded, blocking design makes it ideal for highly 
    parallel, distributed environments. 
 
    (Note: for legal reasons, I'm not responsible if someone corrupts your data
    by gaining root access to your server and modifying your plain-text database
    file.)
 
- - Q: Why does TextDB exist?
+ - __Q__: Why does TextDB exist?
 
-   A: Literally for no other reason than for me to learn C. However, I am
+   __A__: Literally for no other reason than for me to learn C. However, I am
    considering rewriting TextDB in [DreamBerd](https://github.com/TodePond/DreamBerd)
    because languages with the file extension `.db` seem to be uniquely suited 
    for writing database systems. However, this can only happen once the
