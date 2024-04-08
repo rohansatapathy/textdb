@@ -24,7 +24,6 @@ void db_resize(struct db* db, int new_capacity) {
  * couldn't be found.
  */
 struct dbitem* db_find(struct db* db, const char key[]) {
-    bool key_found;
     for (struct dbitem* i = db->items; i < db->items + db->size; i++) {
         if (strcmp(key, i->key) == 0) {
             return i;
