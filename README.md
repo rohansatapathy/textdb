@@ -74,7 +74,7 @@ it will be reallocated to half its original capacity.
    RB trees and "cOnStAnT tImE sEaRcH"? If you ask me, TextDB is a win for
    developers -- if you don't feel like doing work, just load up a particularly
    large database, then when your boss asks you what you're doing, just tell
-   them that the database query is still running ([relevant xkcd](https://xkcd.com/303/)).
+   them that your database query is still running ([relevant xkcd](https://xkcd.com/303/)).
 
  - Q: Is TextDB ready to use in production?
 
