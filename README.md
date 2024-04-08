@@ -87,6 +87,12 @@ reallocated to half its original capacity.
 
  - Q: Why does TextDB exist?
 
-   A: Literally for no other reason than for me to learn C.
+   A: Literally for no other reason than for me to learn C. However, I am
+   considering rewriting TextDB in [DreamBerd](https://github.com/TodePond/DreamBerd)
+   because languages with the file extension `.db` seem to be uniquely suited 
+   for writing database systems. However, this can only happen once the
+   capabilities of GenAI advance enough for ChatGPT to function as a DreamBerd 
+   compiler.
+
 
  
