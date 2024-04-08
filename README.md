@@ -1,18 +1,19 @@
 # TextDB
 
-TextDB is a (bad) database system that stores key-value pairs in a text file.
-Each key-value pair is stored on a separate line in the text file, and
-keys and values are strings separated by a space. The following is an example
-of a properly formatted TextDB database file:
+TextDB is an in-memory database system that tracks key-value pairs. It persists
+data in a text file, where each key-value pair is stored on a separate line 
+in the text file, and keys and values are strings separated by a space. 
 
 ```
 apple orange
 water melon
 lets go blue
 ```
+
 The first space is interpreted as the separator between the key and value,
 and all subsequent spaces are treated as part of the value. For example,
-the third item has key "lets" and value "go blue".
+the third item has key "lets" and value "go blue". Each item has a maximum
+size of 1023 bytes, including the trailing newline.
 
 TextDB can be accessed from the command line through the `db` command, which
 contains the following help text.
@@ -29,18 +30,63 @@ Options:
     -a, --all   Display all key-value pairs.
 ```
 
-While in use, this database is meant to be stored on the heap instead of the
-stack because its size can't be known at compile time. Each item is stored
-in a `dbitem` struct, which contains a `char*` pointing to the key and the
-value, both of which are heap-allocated. These `dbitem` structs are stored in
-a `db` struct, which maintains a pointer to the beginning of a `dbitem[]`
-array, the size of the database (number of items), and the capacity of the
-currently allocated `dbitem` array.
+## Installation
 
-Whenever items are added or removed from the list, the underlying `dbitem[]`
-array could be reallocated. If the newly added item makes the array reach
-capacity, the `dbitem`s will be moved to a new array of twice the size. If
-removing an item from the database causes the size to shrink to less than
-1/4 of the capacity, the `dbitem`s will be moved to a new array of 1/2 the
-original capacity.
+To install TextDB, you will need to compile from source. To do so, make sure
+you have `git` and a C11-compatible compiler (e.g. `clang`) installed, then run 
+the following commands.
 
+```console
+$ git clone https://github.com/rohansatapathy/textdb.git
+$ cd textdb
+$ mkdir bin
+$ make build
+```
+
+The `db` binary will be available as `./bin/db`.
+
+## How does it work?
+
+When the `db` command is run, the entire database is loaded into memory.
+Internally, the database is stored as a heap-allocated array of `dbitem`
+structs, which themselves contain pointers to the item's key and value.
+
+Adding items to the array has an amortized time complexity of $O(1)$. If adding
+the new item causes the array to reach its capacity, then it will be 
+reallocated to double its original capacity.
+
+Searching for a key has a time complexity of $O(n)$ because the keys are
+stored in an unordered list.
+
+Removing items from the array has an amortized time complexity of $O(n)$,
+because searching for the item is $O(n)$ and because removing an item requires 
+shifting all subsequent elements back to ensure the array remains contiguous. 
+If the new size of the array is less than or equal to 1/4 its capacity, then 
+it will be reallocated to half its original capacity.
+
+## FAQ
+
+ - Q: Why not use a data structure that's more efficient than an unordered
+   list?
+
+   A: If there's anything that I've learned over the past few years, it's that
+   efficiency is overrated. Why is everyone so obsessed with hash maps and
+   RB trees and "cOnStAnT tImE sEaRcH"? If you ask me, TextDB is a win for
+   developers -- if you don't feel like doing work, just load up a particularly
+   large database, then when your boss asks you what you're doing, just tell
+   them that the database query is still running ([relevant xkcd](https://xkcd.com/303/)).
+
+ - Q: Is TextDB ready to use in production?
+
+   A: Yes! TextDB's single-threaded, blocking design makes it ideal for highly 
+   parallel, distributed environments. 
+
+   (Note: for legal reasons, I'm not responsible if someone corrupts your data
+   by gaining root access to your server and modifying your plain-text database
+   file.)
+
+ - Q: Why does TextDB exist?
+
+   A: Literally for no other reason than for me to learn C.
+
+ 
