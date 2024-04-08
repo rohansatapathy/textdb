@@ -5,6 +5,8 @@
 
 #define MAX_ITEM_LENGTH 1024
 
+#define MIN_DB_SIZE 4
+
 struct dbitem {
     char* key;
     char* value;
@@ -51,7 +53,7 @@ void db_put(struct db* db, char key[], char value[]);
  * Remove the item corresponding to the given key. If the key doesn't
  * exist, do nothing.
  */
-void db_remove(struct db* db, char key[]);
+void db_remove(struct db* db, const char key[]);
 
 /*
  * Write out the contents of db into the given file in the correct format

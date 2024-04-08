@@ -23,7 +23,7 @@ void db_resize(struct db* db, int new_capacity) {
  * Return a pointer to the dbitem with the given key. Returns NULL if the key
  * couldn't be found.
  */
-struct dbitem* db_find(struct db* db, char key[]) {
+struct dbitem* db_find(struct db* db, const char key[]) {
     bool key_found;
     for (struct dbitem* i = db->items; i < db->items + db->size; i++) {
         if (strcmp(key, i->key) == 0) {
@@ -124,6 +124,29 @@ char* db_get(struct db* db, char key[]) {
     return NULL;
 }
 
-void db_remove(struct db* db, char key[]) { assert(false); }
+void db_remove(struct db* db, const char key[]) {
+    struct dbitem* item = db_find(db, key);
+    if (item == NULL) {
+        return;
+    }
 
-void db_write(struct db* db, FILE* fp) { assert(false); }
+    free(item->key);
+    free(item->value);
+
+    // Shift back the dbitems in the array.
+    for (struct dbitem* i = item; i < db->items + db->size - 1; i++) {
+        *i = *(i + 1);
+    }
+    db->size--;
+
+    // Resize if number of items less than 1/4 the capacity.
+    if (db->capacity > MIN_DB_SIZE && db->size <= db->capacity / 4) {
+        db_resize(db, db->capacity / 2);
+    }
+}
+
+void db_write(struct db* db, FILE* fp) {
+    for (struct dbitem* item = db->items; item < db->items + db->size; item++) {
+        fprintf(fp, "%s %s\n", item->key, item->value);
+    }
+}

@@ -21,12 +21,29 @@ int main(int argc, char* argv[]) {
         printf("Unable to open db.txt!");
         return 1;
     }
+
     struct db* db = db_init(fp);
+    fclose(fp);
     if (db == NULL) {
         printf("Invalid db.txt file!");
         return 1;
     }
+
     db_print(db);
+    printf("\n");
+    db_remove(db, "water");
+    printf("Removed water melon\n\n");
+    db_print(db);
+
+    fp = fopen("/Users/rohansatapathy/code/rohansatapathy/textdb/db.txt", "w");
+    if (fp == NULL) {
+        printf("Unable to open db.txt!");
+        return 1;
+    }
+
+    db_write(db, fp);
     db_delete(db);
+    db = NULL;
+
     return 0;
 }
