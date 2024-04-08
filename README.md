@@ -58,11 +58,11 @@ reallocated to double its original capacity.
 Searching for a key has a time complexity of $O(n)$ because the keys are
 stored in an unordered list.
 
-Removing items from the array has an amortized time complexity of $O(n)$,
-because searching for the item is $O(n)$ and because removing an item requires 
-shifting all subsequent elements back to ensure the array remains contiguous. 
-If the new size of the array is less than or equal to 1/4 its capacity, then 
-it will be reallocated to half its original capacity.
+Removing items from the array has a time complexity of $O(n)$ because searching 
+for the item is $O(n)$ and because removing an item requires shifting all 
+subsequent elements back to ensure the array remains contiguous. If the new 
+size of the array is less than or equal to 1/4 its capacity, then it will be 
+reallocated to half its original capacity. 
 
 ## FAQ
 
